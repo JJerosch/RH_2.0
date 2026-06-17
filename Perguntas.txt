@@ -1,0 +1,83 @@
+Bloqueante para começar (Fase 0-1)
+1. Perfis de acesso
+  - Qual é a lista fechada de perfis do sistema? (O plano só cita ADMIN, DP_CHEFE, "RH/DP", "RH" sem dizer se são o mesmo papel ou papéis distintos.)
+  - Existe um perfil "Gestor"? Se sim, o que ele pode fazer que RH/DP não pode?
+  - Candidato tem conta/login, ou o fluxo é público até a confirmação do RH?
+
+  2. 2FA — parâmetros concretos
+  - Quantas tentativas erradas (N) até bloquear?
+  - Qual o tempo de expiração do código (o plano cita "ex.: 5 min" só como exemplo)?
+  - Existe ação de reenviar código, ou só gerar um novo?
+  - O que acontece depois do bloqueio — espera automática ou desbloqueio manual por admin?
+
+  3. Funcionário — cadastro manual
+  - Quais campos são obrigatórios num cadastro manual de funcionário (fora do fluxo de contratação via vaga)?
+  - Fluxo de promoção: quem aprova, o que muda exatamente (cargo, salário, departamento — tudo de uma vez ou separado)?
+
+  4. Benefícios
+  - TipoBeneficio tem que campos (valor, recorrência, desconta em folha automaticamente)?
+  - Como FuncionarioBeneficio realmente entra no gerador_lancamentos da folha — é automático todo mês ou precisa de ação
+  manual?
+
+  Importante antes da Fase 1-2 (ponto/férias, que alimentam a folha)
+
+  5. Ponto
+  - Como uma marcação (PontoMarcacao) se transforma em apuração diária (PontoApuracaoDiaria)? Existe regra de
+  tolerância/jornada?
+  - PontoOcorrencia e PontoCalendario servem para quê na prática?
+
+  6. Férias
+  - Fluxo de solicitação (FeriasSolicitacao): quem aprova, quantas etapas?
+  - Como o período aquisitivo (FeriasPeriodoAquisitivo) é atualizado com o tempo (vence, renova)?
+
+  Importante antes da Fase 3 (recrutamento)
+
+  7. Recrutamento — fluxo ponta a ponta
+  - Quais etapas exatas uma candidatura percorre (era um Kanban no projeto original — mantém as mesmas etapas)?
+  - O que exatamente dispara a criação do Funcionario (mudança pra etapa "Contratado", ou outra ação)?
+  - O que acontece se o CPF do candidato já existir como funcionário (regra existia no projeto original, não está no
+  plano novo)?
+  - Depois que o RH confirma os dados extraídos pela IA, a candidatura é criada automaticamente ou precisa de uma ação
+  extra?
+
+  Pode esperar, mas decide o tamanho do trabalho
+
+  8. Folha — pontas soltas mesmo sendo o módulo mais detalhado
+  - Qual o nome do tipo "mensal" padrão de FolhaPagamento (só RESCISAO está nomeado, o outro valor não)?
+  - Reabrir folha sem ser ADMIN/DP_CHEFE: retorna 403 simples, ou tem mensagem específica?
+  - A explicação por IA só pode ser pedida em folha fechada, ou também numa aberta?
+
+  9. Contratos de API
+  - Nenhum payload/resposta está definido pra nenhum dos 7 endpoints — precisa decidir isso endpoint por endpoint
+  conforme for implementando, ou quer definir tudo antes?
+  - Os outros apps (funcionarios, recrutamento, ponto, ferias, beneficios, solicitacoes, relatorios) precisam de API
+  REST própria, ou alguns ficam só no Django Admin?
+
+  10. Frontend
+  - Lista completa de telas — vai reaproveitar o layout visual do projeto Spring original como referência, ou desenhar
+  do zero?
+
+  11. Relatórios
+  - Formato de saída (tela, PDF, CSV)?
+  - Quais filtros (período, departamento)?
+  - Lista fechada definitiva: são exatamente esses 3 (headcount, custo de folha, férias vencendo) ou mais?
+
+  12. App solicitacoes (genérico)
+  - O que é esse módulo exatamente? Que tipos de solicitação cobre — substitui os fluxos específicos de
+  férias/promoção/desligamento, ou coexiste com eles?
+
+  Decisão de escopo, não de detalhe
+
+  13. Auditoria/LGPD
+  - O sistema precisa de log de auditoria de alterações (o original tinha um trigger pra isso)? Vale a pena nesse
+  estágio de portfólio, ou fica documentado como "fora de escopo por agora"?
+
+  14. Performance/Disponibilidade/Escalabilidade
+  - Esse sistema é só demo local, ou tem alguma expectativa real de uso (mesmo pequena)? Isso decide se vale a pena ter
+  qualquer meta de RNF aqui ou se fica formalmente fora de escopo.
+
+  15. Testes E2E
+  - Dado o orçamento de horas já apertado, vale investir em E2E (Playwright/Cypress), ou aceitar como decisão consciente
+  que fica só unidade + API por agora?
+
+
