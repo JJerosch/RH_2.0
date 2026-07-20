@@ -25,6 +25,10 @@ Reconstrução do zero, em **Laravel**, de um sistema de RH/DP (SaaS multitenant
 - [[Inteligência Artificial]] — holerite explicado + extração de currículo.
 - [[Perfis de Acesso]] — quem pode o quê.
 
+### Metodologia (o "como executar")
+- [[Fatias Verticais]] — como construímos cada funcionalidade (do banco até a tela).
+- [[Scrum do Projeto]] — papéis, sprints, Product Backlog e o plano do Sprint 1.
+
 ### Pendências (o "o que falta")
 - [[Status das Perguntas]] — as 17 perguntas do planejamento: decididas × parkeadas.
 

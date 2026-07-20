@@ -175,3 +175,12 @@ Log de todas as decisões de arquitetura. Formato de cada uma: **Contexto → De
 ### D-31 — Formato padrão da extração por IA `[Q7c]`
 - **Decisão:** blocos fixos pra toda vaga — pessoais, resumo/objetivo, formação, experiência, competências, certificações, idiomas, pretensão salarial, disponibilidade/mobilidade. Campos ausentes ficam vazios (nunca inventados).
 - **Consequência:** IA só sugere; RH revisa antes de persistir (D-12). Detalhe em [[Inteligência Artificial]].
+
+---
+
+## Metodologia
+
+### D-32 — Fatias verticais + Scrum adaptado
+- **Contexto:** decidir por onde começar (banco vs front). Ambos isolados são armadilhas; front-first repetiria o erro de "dado falso" do projeto original.
+- **Decisão:** desenvolver em **fatias verticais** (funcionalidade do banco até a tela, uma de cada vez), organizadas por **Scrum adaptado a projeto solo** (sprints de 2 semanas, backlog priorizado). Cada item de sprint = uma fatia que fecha a Definition of Done.
+- **Consequência:** método de código e de gestão viram o mesmo. Ver [[Fatias Verticais]] e [[Scrum do Projeto]].

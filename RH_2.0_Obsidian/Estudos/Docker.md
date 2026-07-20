@@ -23,3 +23,6 @@
 
 ## Como saber que entendeu
 Consegue subir a aplicação + Postgres com `docker compose up`, entender onde o Chromium é instalado pro PDF, e explicar por que o `.env` não vai dentro da imagem.
+
+## Mão na massa
+Para o passo a passo prático (instalar, rodar Postgres, começar com Laravel Sail no Sprint 1), ver **[[Docker - Guia Prático]]**.
