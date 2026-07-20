@@ -4,31 +4,25 @@
     "type": "split",
     "children": [
       {
-        "id": "5ae201daedac0e72",
+        "id": "36e3197c55290deb",
         "type": "tabs",
         "children": [
           {
-            "id": "59f725bc937096c5",
+            "id": "a80642cd7f9eb1f1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Bem-vindo.md",
+                "file": "Estudos/PHP e Composer.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Bem-vindo"
+              "title": "PHP e Composer"
             }
-          }
-        ]
-      },
-      {
-        "id": "3ad57a0e8a9b3ea0",
-        "type": "tabs",
-        "children": [
+          },
           {
-            "id": "5a738caf76d88c04",
+            "id": "2b485db64b702598",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -37,7 +31,8 @@
               "title": "Visualização em gráfico"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -199,8 +194,43 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "59f725bc937096c5",
+  "active": "2b485db64b702598",
   "lastOpenFiles": [
-    "Bem-vindo.md"
+    "00 - Índice.md.tmp.20380.9e8df5570fe8",
+    "Estudos/Cronograma de Estudos.md.tmp.20380.50a628f34be6",
+    "Estudos/Cronograma de Estudos.md.tmp.20380.d944500ffd76",
+    "Estudos/Filas e Agendamento.md",
+    "Estudos/Filas e Agendamento.md.tmp.20380.690538635edb",
+    "Estudos/Multitenancy (SaaS).md",
+    "Estudos/Multitenancy (SaaS).md.tmp.20380.6073fc765a09",
+    "Estudos/Domínio - Folha de Pagamento e CLT.md",
+    "Estudos/Domínio - Folha de Pagamento e CLT.md.tmp.20380.07c9d4ed7012",
+    "Plano/Plano Técnico (Laravel).md.tmp.20380.d97f667d0fb8",
+    "Plano/Plano Técnico (Laravel).md.tmp.20380.a6d4b41ef738",
+    "Plano/Plano Técnico (Laravel).md.tmp.20380.5884180a7a76",
+    "Plano/Plano Técnico (Laravel).md.tmp.20380.7abfebe411ba",
+    "Plano/Perguntas Respondidas.md",
+    "Plano/Perguntas Respondidas.md.tmp.20380.b3235b973673",
+    "Plano/_Histórico/Development Guide (Django, desatualizado).md",
+    "Plano/_Histórico/Plano Django (histórico).md",
+    "Plano/Handoff de Origem.md",
+    "Plano/Plano Técnico (Laravel).md",
+    "Estudos/Arquitetura de Software.md",
+    "Estudos/PHP e Composer.md",
+    "Estudos/Cronograma de Estudos.md",
+    "Estudos/Precisão Decimal e Dinheiro.md",
+    "Bem-vindo.md",
+    "Estudos/IA com a Claude API.md",
+    "Estudos/Segurança e LGPD.md",
+    "Estudos/Docker.md",
+    "Estudos/Frontend (Blade, HTML, CSS, JS).md",
+    "Estudos/APIs REST e Sanctum.md",
+    "Estudos/Testes (Pest).md",
+    "Estudos/Filament.md",
+    "Estudos/Banco de Dados e SQL.md",
+    "Estudos/Laravel.md",
+    "Estudos/Git e Commits.md",
+    "Convenções/Commits.md",
+    "Pendências/Status das Perguntas.md"
   ]
 }

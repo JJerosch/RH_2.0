@@ -1,6 +1,9 @@
 # RHParaTodos-Laravel — Plano Técnico de Reconstrução
 
-> Este documento substitui `RHParaTodos-Django-plano.md` como plano principal. O arquivo Django é mantido intacto como histórico da decisão anterior — não foi apagado nem editado.
+> Este documento substitui o plano Django como plano principal (o Django está em `_Histórico/`).
+
+> [!important] Estado atual (atualizado após Q1–Q17)
+> Este plano é o **contrato técnico** original. Todas as 17 perguntas de planejamento já foram respondidas — o estado vivo das decisões está em [[Registro de Decisões]] (D-01 a D-31) e [[Perguntas Respondidas]]. Onde este texto disser "definir depois" ou trouxer um exemplo provisório (ex.: 2FA "5 min"), **vale a decisão consolidada no [[[#Apêndice — Decisões Q1–Q17 consolidadas|apêndice ao final]]]** deste documento.
 
 ## Contexto
 
@@ -132,7 +135,7 @@ class CodigoDoisFatores extends Model
 
 ### Service (`app/Domain/Core/Services/DoisFatoresService.php`)
 
-- `gerarCodigo(Usuario $usuario)`: gera 6 dígitos com `random_int()` (criptograficamente seguro em PHP, equivalente ao `secrets.randbelow` do Python), guarda o hash via `Hash::make()` (bcrypt, reaproveita a infra nativa do Laravel), define expiração curta (ex.: 5 min), invalida códigos anteriores não usados do mesmo usuário, envia e-mail via `Mail::send()` com uma classe `Mailable`.
+- `gerarCodigo(Usuario $usuario)`: gera 6 dígitos com `random_int()` (criptograficamente seguro em PHP, equivalente ao `secrets.randbelow` do Python), guarda o hash via `Hash::make()` (bcrypt, reaproveita a infra nativa do Laravel), define expiração de **10 min** (decisão Q2 — ver apêndice), invalida códigos anteriores não usados do mesmo usuário, envia e-mail via `Mail::send()` com uma classe `Mailable`.
 - `validarCodigo(Usuario $usuario, string $codigoInformado)`: busca o código válido mais recente (não expirado, não usado), compara com `Hash::check()`, incrementa `tentativas` e bloqueia depois de N tentativas erradas, marca como usado se válido.
 
 ```php
@@ -147,7 +150,7 @@ class DoisFatoresService
         CodigoDoisFatores::create([
             'usuario_id' => $usuario->id,
             'codigo_hash' => Hash::make($codigo),
-            'expira_em' => now()->addMinutes(5),
+            'expira_em' => now()->addMinutes(10), // Q2: 10 min
         ]);
 
         Mail::to($usuario->email)->send(new CodigoDoisFatoresMail($codigo));
@@ -545,3 +548,68 @@ Uma feature só é considerada pronta quando, **simultaneamente**:
 5. Rota adicionada a `routes/web.php`/`routes/api.php` **só neste momento**, nunca antes
 
 Nenhuma entrada no roadmap fica "meio pronta" no `main` — ou está nas 5 condições, ou fica em branch.
+
+---
+
+## Apêndice — Decisões Q1–Q17 consolidadas
+
+Respostas finais às 17 perguntas de planejamento, incorporadas ao plano. Detalhe completo em [[Perguntas Respondidas]]; racional em [[Registro de Decisões]].
+
+### Perfis e permissões (Q1 — D-20/21/22)
+- Perfis fechados: ADMIN, Chefe de RH, Chefe de DP, Assistente de RH, Assistente de DP, Funcionário.
+- Permissão = **perfil (RBAC) + contexto** (gestor de departamento/vaga) via Policies. **"Gestor" é atributo, não perfil.**
+- Login SaaS multitenant: sem cadastro público, e-mail criado na contratação, tela só com entrar + esqueci a senha.
+- Contratação: Gestor pede vaga → Chefe de RH aprova → Chefe de RH + gestor da vaga no Kanban → "prévia de funcionário" → DP efetiva. Cada passo = `Solicitacao` (log).
+
+### 2FA (Q2 — D-11)
+- 5 tentativas; expira em **10 min**; reenvio até 5x; bloqueio com cooldown progressivo (1 → 2 → 4 dias).
+
+### Funcionário (Q3 — D-17)
+- Lista completa de campos como MVP; **PIS/PASEP** entra nos obrigatórios; **dependentes** em tabela à parte; histórico salarial via `Promocao` + activitylog.
+
+### Benefícios (Q4)
+- Descontam automático na folha todo mês; alteração não mexe em lançamentos já gerados.
+
+### Ponto (Q5 — D-23/24/25)
+- Batidas pareadas por ordem + **job diário** de apuração; **tolerância CLT (10 min) configurável por tenant**; jornada via entidade **`Escala`** ligada ao funcionário.
+
+### Férias (Q6 — D-26/27/28)
+- Fluxo funcionário → gestor → Chefe de RH; período aquisitivo **padrão CLT configurável por tenant** com job de vencimento; MVP com **fracionamento + abono pecuniário** (fidelidade CLT completa).
+
+### Recrutamento (Q7 — D-29/30/31)
+- Kanban: Inscrito → Triagem → Entrevista RH → Entrevista Gestor → Proposta → Contratado (+ Reprovado).
+- Prévia de funcionário na **"Proposta"**; efetivação em "Contratado". CPF repetido → aviso.
+- Extração por IA em **formato padrão de 9 blocos**, sempre com revisão humana.
+
+### Folha — tipos e regras (Q8 — D-16)
+- Enum `MENSAL`/`RESCISAO`/`DECIMO_TERCEIRO`/`FERIAS` (MVP: os 2 primeiros). Reabrir folha não tem botão pra quem não pode. IA só explica folha **fechada**.
+
+### API (Q9 — D-14)
+- **Só a Folha** expõe API REST; contratos = esqueleto + refino na implementação.
+
+### Frontend (Q10 — D-06)
+- Filament pra RH/DP; Blade custom (bonito, do zero) pro portal do funcionário + Kanban.
+
+### Relatórios (Q11 — D-18)
+- Filament + CSV + PDF nos formais; lista fechada em **6** (3 no MVP).
+
+### Solicitações (Q12)
+- Fluxo de aprovação **e** log de ações importantes; coexiste com os fluxos específicos.
+
+### Auditoria/LGPD (Q13 — D-13)
+- **`spatie/laravel-activitylog`** (autor + diff nos models sensíveis).
+
+### RNF (Q14 — D-15)
+- **Uso real pequeno esperado**: metas modestas, backup, índices, isolamento por tenant.
+
+### Testes E2E (Q15) — ⏸️ adiado de propósito
+- Fica pro futuro (Dusk/Playwright), sem bloquear o MVP.
+
+### PDF (Q16 — D-09)
+- **`spatie/laravel-pdf`** (Chromium via Docker), gerado on-demand.
+
+### Cliente de IA (Q17 — D-08)
+- Wrapper Guzzle com **camada mínima** (timeout + backoff em 429/5xx/529, máx. 3 tentativas) na Fase 5.
+
+### Novas entidades introduzidas pelas decisões
+- **`Escala`** (Ponto, D-25), **`Dependente`** (Funcionarios, D-17), **`Local`/filial** (Ponto). Vínculos de **gestor** (departamento/vaga) para o modelo de permissão (D-20).
