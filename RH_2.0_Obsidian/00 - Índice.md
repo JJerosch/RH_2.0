@@ -3,6 +3,7 @@
 Ponto de partida de tudo. Este cofre é a **memória viva** do projeto: por que cada decisão foi tomada, como a arquitetura funciona, o que ainda falta decidir e o que estudar pra entender e corrigir cada parte.
 
 > [!tip] Primeira vez aqui? Leia [[Como usar este cofre]].
+> [!important] Quer só saber o estado atual e o próximo passo? → [[Progresso do Projeto]]
 
 ---
 
@@ -13,6 +14,9 @@ Reconstrução do zero, em **Laravel**, de um sistema de RH/DP (SaaS multitenant
 ---
 
 ## 🧭 Navegação
+
+### Status (o "onde estamos")
+- [[Progresso do Projeto]] — foto do estado atual, checklist grande e o próximo passo. **Comece por aqui pra retomar.**
 
 ### Decisões (o "porquê")
 - [[Registro de Decisões]] — log de todas as decisões de arquitetura, com contexto e consequência.
